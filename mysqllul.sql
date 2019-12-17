@@ -262,3 +262,78 @@ VALUES (
 "16:25",
 "17:10"
 );
+
+SELECT sch.date AS Datum, l.position AS 'Vyučovací hodina', su.shortcut AS 'Předmět', t.first_name 'Jméno', t.last_name'Příjmení', cl.number_spec 'Učebna' 
+FROM schedule sch
+JOIN teachers t ON sch.id_teacher = t.id_teachers
+JOIN classes cls ON sch.id_class = cls.id_class
+JOIN subjects su ON sch.id_subject = su.id_subject
+JOIN classroom cl ON sch.id_classroom = cl.id_classroom
+JOIN lessons l ON sch.id_lesson = l.id_lesson
+;
+
+CREATE TABLE authors(
+id_author int(11) NOT NULL AUTO_INCREMENT,
+firstname varchar(255) NOT NULL,
+lastname varchar(255) NOT NULL,
+birthdate int(11) NOT NULL,
+date_of_death int(255) NOT NULL,
+description TEXT,
+
+PRIMARY KEY (id_author)
+);
+---------------------------------------
+CREATE TABLE books(
+id_book int(11) NOT NULL AUTO_INCREMENT,
+id_author int(11) NOT NULL,
+id_publisher int(11) NOT NULL,
+id_gendre int(11) NOT NULL,
+title varchar(255) NOT NULL,
+year int(255) NOT NULL,
+description TEXT,
+
+PRIMARY KEY (id_book)
+);
+---------------------------------------
+CREATE TABLE publishers(
+id_publisher int(11) NOT NULL AUTO_INCREMENT,
+name varchar(255) NOT NULL,
+description TEXT,
+
+PRIMARY KEY (id_publisher)
+);
+---------------------------------------
+CREATE TABLE genres(
+id_genre int(11) NOT NULL AUTO_INCREMENT,
+name varchar(255) NOT NULL,
+description TEXT,
+
+PRIMARY KEY (id_genre)
+);
+---------------------------------------
+
+
+INSERT INTO books (
+                      id_author,
+                      id_publisher,
+                      id_gendre,	
+                      title,
+                      year,
+                      description)
+VALUES (
+2,
+2,
+2,
+"Jméno větru",
+"2017-01-01",
+"A jo ahojky."
+);
+
+PROPOJOVÁNÍ KNIHOVNY
+SELECT boo.id_book AS "Číslo knihy", boo.title AS "Titul", CONCAT(a.firstname, " ", a.lastname) AS "Jméno a Příjmení" , pub.name AS "Vydavatel", gen.name AS "Žánr"
+FROM books boo
+JOIN authors a ON boo.id_author = a.id_author
+JOIN genres gen ON boo.id_gendre = gen.id_genre
+JOIN publishers pub ON boo.id_publisher = pub.id_publisher
+
+;
