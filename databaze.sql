@@ -336,4 +336,12 @@ JOIN authors a ON boo.id_author = a.id_author
 JOIN genres gen ON boo.id_gendre = gen.id_genre
 JOIN publishers pub ON boo.id_publisher = pub.id_publisher
 
+PROPOJOVÁNÍ OSSP_WARS
+SELECT u_t.name AS "Název jednotky", ch.name AS "Jméno charakteru", cl.name AS "Jméno classy", p.nickname AS "Přezdívka", g.name AS "Jméno guildy"
+FROM units u
+JOIN units_types u_t ON u_t.id_units_types = u.id_unit_type
+LEFT JOIN characters ch ON ch.id_character = u.id_character
+LEFT JOIN classes cl ON cl.id_class = ch.id_class
+LEFT JOIN players p ON ch.id_player = p.id_player
+LEFT JOIN guilds g ON g.id_guild = p.id_guild
 ;
